@@ -11,12 +11,35 @@ import c from './assets/images/c.png'
 import project1 from './assets/images/weather.png'
 import project01 from './assets/videos/project01.mp4'
 import project02 from './assets/videos/project02.mp4'
+import project03 from './assets/videos/project03.mp4'
+import project04 from './assets/videos/project04.mp4'
 import { useState, useEffect, useRef } from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { HiMail } from 'react-icons/hi'
+
+// Add icons to the library
+library.add(faInstagram)
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredVideo, setHoveredVideo] = useState(null);
   const skillsRef = useRef(null);
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const navHeight = document.querySelector('nav').offsetHeight;
+      const sectionTop = section.offsetTop - navHeight;
+      window.scrollTo({
+        top: sectionTop,
+        behavior: 'smooth'
+      });
+    }
+    setIsMenuOpen(false);
+  };
 
   const project1Link = 'https://weather-app-nine-ruby-76.vercel.app/'
   const project2Link = 'https://shoes-find-app.vercel.app/'
@@ -56,7 +79,7 @@ function App() {
       <nav className='w-full sticky top-0 z-10'>
         <div className='flex flex-col md:flex-row md:justify-around border-b-[1px] border-gray-900 bg-black text-white p-4 md:p-9'>
           <div className='flex justify-between md:justify-start items-center mb-4 md:mb-0'>
-            <h1 className='text-2xl md:text-3xl font-bold'>Portfolio</h1>
+            <h1 id="logo" className='text-4xl md:text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-400 to-white'>Aryan</h1>
             <button
               className='md:hidden hamburger-menu'
               onClick={toggleMenu}
@@ -69,9 +92,9 @@ function App() {
           </div>
           <div className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row justify-center items-center text-lg md:text-2xl`}>
             <ul className='flex flex-col md:flex-row gap-4 md:gap-10 text-center'>
-              <li className='rounded-md p-2 relative nav-link'>Home</li>
-              <li className='rounded-md p-2 relative nav-link'>Skills</li>
-              <li className='rounded-md p-2 relative nav-link'>Projects</li>
+              <li onClick={() => scrollToSection('main')} className='rounded-md p-2 relative nav-link cursor-pointer'>Home</li>
+              <li onClick={() => scrollToSection('skills')} className='rounded-md p-2 relative nav-link cursor-pointer'>Skills</li>
+              <li onClick={() => scrollToSection('projects')} className='rounded-md p-2 relative nav-link cursor-pointer'>Projects</li>
             </ul>
           </div>
           <div className={`${isMenuOpen ? 'flex' : 'hidden'} md:flex justify-center md:justify-end items-center text-lg md:text-2xl mt-4 md:mt-0`}>
@@ -85,16 +108,26 @@ function App() {
       <section className='w-full'>
         <div className='min-h-[90vh] w-full bg-black text-white flex justify-center items-center py-4 md:py-0'>
           <div id="main" className='flex flex-col-reverse md:flex-row justify-between items-center h-full w-full max-w-7xl mx-auto px-4 gap-8 md:gap-0'>
-            <div className='flex justify-center items-center'>
+            <div className='flex justify-center items-center gap-4'>
               <div className='flex justify-center items-center'>
-                <img src={aryan} alt="aryan" className='w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full shadow-2xl shadow-blue-500 object-cover' />
+                <img src={aryan} alt="aryan" className='w-[150px] h-[150px] md:w-[150px] md:h-[150px] rounded-full shadow-2xl shadow-blue-500 object-cover' />
+              </div>
+              <div className='flex flex-col justify-center items-start'>
+                <p className='text-2xl md:text-2xl font-medium'>Aryan Kawale</p>
+                <p className='text-2xl md:text-xl font-medium text-blue-500'>FullStack Developer</p>
+                <div className="flex gap-4 mt-2">
+                <a href="https://www.instagram.com/aryan_kawale._/"><FontAwesomeIcon icon={faInstagram} className='w-6 h-6 hover:text-pink-500 cursor-pointer transition-colors' /></a>
+                  <a href="https://github.com/ARYANKAWALE"><FaGithub className='w-6 h-6 hover:text-gray-400 cursor-pointer transition-colors' /></a>
+                  <a href="https://www.linkedin.com/in/aryan-kawale-19a919266/"><FaLinkedin className='w-6 h-6 hover:text-blue-500 cursor-pointer transition-colors' /></a>
+                  <a href="mailto:aryankawale163@gmail.com"><HiMail className='w-6 h-6 hover:text-red-500 cursor-pointer transition-colors' /></a>
+                </div>
               </div>
             </div>
             <div className='flex justify-center items-center text-center md:text-left'>
               <div className='gap-3 md:gap-5 flex flex-col'>
-                <h1 className='text-3xl md:text-6xl font-bold'>Hey There! I'm <span className='text-blue-500 bg-white rounded-full p-2'>Aryan 👋</span></h1>
-                <p className='text-2xl md:text-4xl font-medium'>a passionate<span className='text-white bg-blue-500 rounded-full p-2'>Web Developer</span></p>
-                <p className='text-2xl md:text-4xl font-medium'><span className='text-blue-500 p-2'>I build responsive websites and love <br className='hidden md:block' /> turning ideas into digital reality.</span></p>
+                <h1 className='text-3xl md:text-6xl font-bold text-gray-500'> <span className='text-white'>Hey There!</span> I'm <span className='text-blue-500 rounded-full p-2'>Aryan</span></h1>
+                <p className='text-2xl md:text-6xl font-medium'>a<span className='text-blue-500 p-2 font-serif'>Web Developer</span></p>
+                <p className='text-2xl md:text-4xl font-medium'><span className='text-gray-500 p-2'>I build responsive websites and love <br className='hidden md:block' /> turning ideas into digital reality.</span></p>
               </div>
             </div>
           </div>
@@ -165,7 +198,7 @@ function App() {
       </section>
 
       <section className='min-h-[80vh] w-full py-10 md:py-20 bg-black border-t-[1px] border-gray-900'>
-        <div className='max-w-7xl mx-auto px-4'>
+        <div id="projects" className='max-w-7xl mx-auto px-4'>
           <div className='flex justify-center items-start mb-8 md:mb-12'>
             <h1 className='text-3xl md:text-4xl text-white font-bold'>Projects</h1>
           </div>
@@ -198,7 +231,7 @@ function App() {
                     playsInline
                   />
                 </a>
-                <p className='text-gray-300 font-bold'>🌦️ Weather App – Real-Time Weather Forecast</p>
+                <p className='text-gray-300 font-bold'>Weather App – Real-Time Weather Forecast</p>
                 <div className='flex gap-2'>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>React</span>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>Tailwind</span>
@@ -248,13 +281,27 @@ function App() {
                   rel="noopener noreferrer"
                   className="block overflow-hidden rounded-lg"
                 >
-                  <img
-                    src={project1}
-                    alt="Weather App Screenshot"
+                  <video
+                    ref={video => {
+                      if (video) {
+                        if (hoveredVideo === 'project2') {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                    onMouseEnter={() => setHoveredVideo('project2')}
+                    onMouseLeave={() => setHoveredVideo(null)}
+                    src={project03}
+                    alt="Weather App Demo"
                     className='w-full max-h-[40vh] object-cover transition-transform duration-300 hover:scale-105'
+                    muted
+                    loop
+                    playsInline
                   />
                 </a>
-                <p className='text-gray-300 font-bold'>🌦️ Weather App – Real-Time Weather Forecast</p>
+                <p className='text-gray-300 font-bold'>Timer App – Minimal Countdown Timer</p>
                 <div className='flex gap-2'>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>React</span>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>Tailwind</span>
@@ -270,13 +317,27 @@ function App() {
                   rel="noopener noreferrer"
                   className="block overflow-hidden rounded-lg"
                 >
-                  <img
-                    src={project1}
-                    alt="Weather App Screenshot"
+                  <video
+                    ref={video => {
+                      if (video) {
+                        if (hoveredVideo === 'project1') {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                    onMouseEnter={() => setHoveredVideo('project1')}
+                    onMouseLeave={() => setHoveredVideo(null)}
+                    src={project04}
+                    alt="Weather App Demo"
                     className='w-full max-h-[40vh] object-cover transition-transform duration-300 hover:scale-105'
+                    muted
+                    loop
+                    playsInline
                   />
                 </a>
-                <p className='text-gray-300 font-bold'>🌦️ Weather App – Real-Time Weather Forecast</p>
+                <p className='text-gray-300 font-bold'> Age Calculator App – Calculate Your Exact Age Instantly</p>
                 <div className='flex gap-2'>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>React</span>
                   <span className='px-3 py-1 bg-blue-500 text-white rounded-full text-sm'>Tailwind</span>
