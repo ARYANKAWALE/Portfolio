@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiMail } from 'react-icons/hi'
+import { Analytics } from "@vercel/analytics/react"
 
 // Add icons to the library
 library.add(faInstagram)
@@ -76,6 +77,7 @@ function App() {
 
   return (
     <div className='min-h-screen w-full'>
+      <Analytics />
       <nav className='w-full sticky top-0 z-10'>
         <div className='flex flex-col md:flex-row md:justify-around border-b-[1px] border-gray-900 bg-black text-white p-4 md:p-9'>
           <div className='flex justify-between md:justify-start items-center mb-4 md:mb-0'>
