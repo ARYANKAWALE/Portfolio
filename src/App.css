@@ -57,42 +57,26 @@
   }
 }
 
-/* Skills Section Animation */
-#skills {
-  opacity: 0;
-  animation: appear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-timeline: view();
-  animation-play-state: paused;
-}
-
-#skills.visible {
-  animation-play-state: running;
-}
 
 /* Project Card Animation */
 @keyframes projectAppear {
   0% {
-    opacity: 0;
-    transform: translateY(50px) scale(0.98);
-  }
-  20%{
-    animation-timeline: view();
+    opacity: 1;
+    transform: none;
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: none;
   }
 }
 
 /* Project Card Styles */
 .project-card {
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;  /* Only transition transform */
   border: 1px solid transparent;
-  opacity: 0;
-  animation: projectAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-timeline: view();
-  animation-range: entry 10% cover 30%;
-  animation-delay: calc(var(--card-index) * 0.4s);
+  opacity: 1;
+  transform: none;
+  animation: none;  /* Remove default animation */
 }
 
 .project-card:hover {
@@ -175,17 +159,26 @@
 
   .project-card {
     max-width: 100%;
+    opacity: 1 !important;  /* Force full opacity */
+    transform: none !important;  /* Force no transform */
+    animation: none !important;  /* Force no animation */
+    visibility: visible !important;  /* Ensure visibility */
+  }
+
+  #projects {
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
 
-#projects{
-  animation: projectAppear 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-timeline: view();
-  animation-play-state: paused;
+#projects {
+  opacity: 1;
+  animation: none;  /* Remove animation */
 }
 
 #projects.visible {
-  animation-play-state: running;
+  opacity: 1;
+  animation: none;
 }
 
 /* Hamburger Menu Styles */

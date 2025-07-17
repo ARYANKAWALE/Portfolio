@@ -1,14 +1,5 @@
 import aryan from './assets/images/aryan.jpg'
 import './App.css'
-import css from './assets/images/css.png'
-import html from './assets/images/html.png'
-import javascript from './assets/images/js.png'
-import react from './assets/images/react.png'
-import tailwind from './assets/images/tailwind.png'
-import github from './assets/images/github.jpg'
-import sql from './assets/images/sql.png'
-import c from './assets/images/c.png'
-import project1 from './assets/images/weather.png'
 import project01 from './assets/videos/project01.mp4'
 import project02 from './assets/videos/project02.mp4'
 import project03 from './assets/videos/project03.mp4'
@@ -17,7 +8,7 @@ import { useState, useEffect, useRef } from 'react'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { FaFontAwesome, FaGithub, FaLinkedin, FaLocationArrow, FaPhone, FaSearchLocation } from 'react-icons/fa'
+import { FaFontAwesome, FaGithub, FaHtml5, FaLinkedin, FaLocationArrow, FaPhone, FaSearchLocation } from 'react-icons/fa'
 import { HiMail } from 'react-icons/hi'
 import { Analytics } from "@vercel/analytics/react"
 
@@ -46,21 +37,32 @@ function App() {
   const project2Link = 'https://shoes-find-app.vercel.app/'
 
   useEffect(() => {
+    // For mobile devices, don't use Intersection Observer
+    if (window.innerWidth <= 768) {
+      if (skillsRef.current) {
+        skillsRef.current.classList.add('visible');
+      }
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.1
+        threshold: 0,
+        rootMargin: '0px'
       }
     );
 
     if (skillsRef.current) {
+      // Ensure initial visibility
+      skillsRef.current.style.opacity = '1';
+      skillsRef.current.style.visibility = 'visible';
       observer.observe(skillsRef.current);
     }
 
@@ -137,65 +139,160 @@ function App() {
         </div>
       </section>
 
-      <section className='max-h-[100vh] w-full py-10 md:py-20 bg-black border-t-[1px] border-gray-900'>
+      <section className=' w-full py-10 md:py-20 bg-black border-t-[1px] border-gray-900'>
         <div id="skills" ref={skillsRef} className='max-w-7xl mx-auto px-4'>
-          <div className='flex justify-center items-start mb-8 md:mb-0'>
-            <h1 className='text-3xl md:text-4xl text-white font-bold'>Skills</h1>
+          <div className='flex justify-center items-start mb-8 md:mb-10'>
+            <h1 className='text-3xl md:text-4xl text-white font-bold text-center'>Skills & Technologies</h1>
           </div>
-          <div id="slider" className='w-full overflow-hidden'>
-            <div className="slide-track gap-4 md:gap-8">
-              {/* First set of icons */}
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={html} alt="html" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
+          <div className='flex flex-col md:flex-row gap-4 md:gap-8 text-white justify-center items-center w-full'>
+            <div className='border-2 border-gray-700 rounded-lg p-3 hover:shadow-2xl hover:shadow-blue-500 transition-all duration-300 w-full md:w-1/3'>
+              <div className='flex gap-2 text-gray-400 pb-2'>
+                <p className='font-bold'>Frontend</p>
               </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={css} alt="css" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={javascript} alt="javascript" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-md' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={react} alt="react" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={tailwind} alt="tailwind" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={github} alt="github" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={sql} alt="sql" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={c} alt="c" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
-              </div>
-
-              {/* Duplicate set for seamless scrolling */}
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={html} alt="html" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={css} alt="css" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={javascript} alt="javascript" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-md' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={react} alt="react" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={tailwind} alt="tailwind" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px]' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={github} alt="github" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={sql} alt="sql" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
-              </div>
-              <div className='flex justify-center items-center bg-gray-900 h-[80px] w-[80px] md:h-[100px] md:w-[100px] rounded-full'>
-                <img src={c} alt="c" className='w-[45px] h-[45px] md:w-[60px] md:h-[60px] rounded-full' />
+              <div className='flex flex-col gap-4'>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>HTML</p>
+                    <p className='text-gray-400'>90%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '90%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>JavaScript</p>
+                    <p className='text-gray-400'>85%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '85%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>React</p>
+                    <p className='text-gray-400'>80%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Tailwind CSS</p>
+                    <p className='text-gray-400'>85%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '85%' }}></div>
+                  </div>
+                </div>
               </div>
             </div>
+
+
+            <div>
+            </div>
+            <div className='border-2 border-gray-700 rounded-lg p-3 hover:shadow-2xl hover:shadow-blue-500 transition-all duration-300 w-full md:w-1/3'>
+              <div className='flex flex-start gap-2 text-gray-400'>
+                <p className='font-bold pb-2'>BackEnd</p>
+              </div>
+              <div className='flex flex-col gap-4'>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Nodejs</p>
+                    <p className='text-gray-400'>75%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '75%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Express</p>
+                    <p className='text-gray-400'>70%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '70%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>MongoDB</p>
+                    <p className='text-gray-400'>80%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>MySQL</p>
+                    <p className='text-gray-400'>75%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '75%' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className='border-2 border-gray-700 rounded-lg p-3 hover:shadow-2xl hover:shadow-blue-500 transition-all duration-300 w-full md:w-1/3'>
+              <div className='flex flex-start gap-2 text-gray-400'>
+                <p className='font-bold pb-2'>Tools & Others</p>
+              </div>
+              <div className='flex flex-col gap-4'>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Git</p>
+                    <p className='text-gray-400'>85%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '85%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>GitHub</p>
+                    <p className='text-gray-400'>90%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '90%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Postman</p>
+                    <p className='text-gray-400'>80%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '80%' }}></div>
+                  </div>
+                </div>
+                <div>
+                  <div className='flex justify-between' >
+                    <p>Figma</p>
+                    <p className='text-gray-400'>75%</p>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '75%' }}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='flex justify-center items-center w-full mt-10'>
+            <div className='text-white text-[20px] font-bold'>
+              <p>Technologies I Work With</p>
+            </div>
+          </div>
+          <div className='flex flex-row justify-center items-center gap-4 mt-10'>
+            <p className='text-white text-[12px] border-2 border-gray-700 rounded-lg p-2'>Git</p>
+            <p className='text-white text-[12px] border-2 border-gray-700 rounded-lg p-2'>GitHub</p>
+            <p className='text-white text-[12px] border-2 border-gray-700 rounded-lg p-2'>Postman</p>
+            <p className='text-white text-[12px] border-2 border-gray-700 rounded-lg p-2'>Figma</p>
+            <p className='text-white text-[12px] border-2 border-gray-700 rounded-lg p-2'>MongoDB</p>
+
           </div>
         </div>
       </section>
@@ -203,7 +300,7 @@ function App() {
       <section className='min-h-[80vh] w-full py-10 md:py-20 bg-black border-t-[1px] border-gray-900'>
         <div id="projects" className='max-w-7xl mx-auto px-4'>
           <div className='flex justify-center items-start mb-8 md:mb-12'>
-            <h1 className='text-3xl md:text-4xl text-white font-bold'>Projects</h1>
+            <h1 className='text-3xl md:text-4xl text-white font-bold'>Personal Projects</h1>
           </div>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8'>
             <div className='flex flex-col md:flex-row gap-4 md:gap-8 '>
@@ -398,7 +495,7 @@ function App() {
                 </p>
               </div>
             </div>
-            
+
             <div className='w-full max-w-2xl'>
               <div className='bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 md:p-8 shadow-xl'>
                 <form className='space-y-6'>
@@ -452,7 +549,17 @@ function App() {
                 </form>
               </div>
             </div>
+
           </div>
+          <hr className='w-[50%] border-gray-700 mt-10' />
+            <div className='flex flex-row justify-center items-center gap-4 text-center'>
+                  <div className='text-gray-400 text-sm text-[12px] md:text-[16px]'>
+                    <p>© 2025 Aryan Kawale. All rights reserved.</p>
+                  </div>
+                  <div className='text-gray-400 text-sm text-[12px] md:text-[16px]'>
+                    <p>Designed and Developed by Aryan Kawale</p>
+                  </div>
+            </div>
         </div>
       </div>
 
