@@ -1,0 +1,54 @@
+.text-type {
+  display: inline-block;
+  position: relative;
+}
+
+.text-type__content {
+  display: inline;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+}
+
+.text-type__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
+  animation: blink 1s infinite;
+}
+
+.text-type__cursor--hidden {
+  opacity: 0 !important;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Smooth text rendering */
+.text-type__content {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom cursor styles */
+.text-type__cursor {
+  color: inherit;
+  transition: opacity 0.1s ease-in-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .text-type__cursor {
+    margin-left: 1px;
+  }
+}

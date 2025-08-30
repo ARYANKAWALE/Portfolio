@@ -1,0 +1,115 @@
+.card-3d-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.card-3d-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 2;
+  background: inherit;
+}
+
+/* Disable conflicting hover effects on child elements when 3D card is active */
+.card-3d:hover .card-3d-content > * {
+  transform: none !important;
+  scale: none !important;
+}
+
+.card-3d-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: var(--glow-color);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+  filter: blur(8px);
+}
+
+.card-3d.hovered .card-3d-glow {
+  opacity: 1;
+}
+
+.card-3d-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.card-3d.hovered .card-3d-shine {
+  opacity: 1;
+}
+
+/* Enhanced shadow for depth */
+.card-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-3d.hovered::before {
+  opacity: 1;
+}
+
+/* Add depth shadow */
+.card-3d.hovered {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .card-3d {
+    transition: all 0.2s ease;
+  }
+  
+  .card-3d-glow {
+    filter: blur(4px);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .card-3d {
+    transition: none;
+  }
+  
+  .card-3d-glow,
+  .card-3d-shine {
+    transition: none;
+  }
+}
