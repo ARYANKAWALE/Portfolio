@@ -108,3 +108,4 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
   );
 };
 
+
