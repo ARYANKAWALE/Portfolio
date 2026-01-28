@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import './animated-testimonials.css';
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import "./animated-testimonials.css";
 
 export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
   const [active, setActive] = useState(0);
@@ -35,7 +35,7 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`testimonial-card ${isActive(index) ? 'active' : ''}`}
+              className={`testimonial-card ${isActive(index) ? "active" : ""}`}
               style={{
                 transform: `translateX(${(index - active) * 100}%) rotateY(${
                   isActive(index) ? 0 : randomRotateY()
@@ -55,12 +55,12 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
                 <div className="video-overlay" />
               </div>
               <div className="testimonial-text">
-                <blockquote className="quote">
-                  "{testimonial.quote}"
-                </blockquote>
+                <blockquote className="quote">"{testimonial.quote}"</blockquote>
                 <div className="author-info">
                   <div className="author-name">{testimonial.name}</div>
-                  <div className="author-designation">{testimonial.designation}</div>
+                  <div className="author-designation">
+                    {testimonial.designation}
+                  </div>
                   {testimonial.technologies && (
                     <div className="technologies">
                       {testimonial.technologies.map((tech, techIndex) => (
@@ -70,12 +70,23 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
                       ))}
                     </div>
                   )}
+                  {testimonial.link && (
+                    <a
+                      href={testimonial.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-link"
+                    >
+                      <ExternalLink size={16} />
+                      <span>View Project</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
           ))}
         </div>
-        
+
         <div className="navigation-buttons">
           <button
             onClick={handlePrev}
@@ -98,7 +109,7 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
             <button
               key={index}
               onClick={() => setActive(index)}
-              className={`indicator ${isActive(index) ? 'active' : ''}`}
+              className={`indicator ${isActive(index) ? "active" : ""}`}
               aria-label={`Go to testimonial ${index + 1}`}
             />
           ))}
@@ -107,5 +118,3 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
     </div>
   );
 };
-
-
