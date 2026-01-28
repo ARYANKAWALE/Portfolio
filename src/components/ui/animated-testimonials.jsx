@@ -51,6 +51,15 @@ export const AnimatedTestimonials = ({ testimonials, autoPlay = true }) => {
                   muted
                   loop
                   playsInline
+                  preload={
+                    isActive(index) ||
+                    index === active + 1 ||
+                    index === active - 1
+                      ? "auto"
+                      : "none"
+                  }
+                  loading="lazy"
+                  style={{ willChange: isActive(index) ? "transform" : "auto" }}
                 />
                 <div className="video-overlay" />
               </div>

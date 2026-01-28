@@ -4,6 +4,14 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+/* Performance Optimizations */
+* {
+    /* Force hardware acceleration */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scrollbar */
@@ -18,6 +26,7 @@ html {
 ::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 5px;
+    transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -27,4 +36,33 @@ html {
 body {
     background-color: black;
     color: white;
+    overflow-x: hidden;
+}
+
+/* Smooth transitions for all interactive elements */
+button, a, input, textarea {
+    transition: all 0.2s ease-out;
+}
+
+/* GPU Acceleration for animated elements */
+[class*="motion-"], [class*="animate-"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* Will-change optimization for frequently animated elements */
+nav {
+    will-change: transform, opacity;
+}
+
+section {
+    will-change: auto;
+}
+
+/* Optimize image rendering */
+img, video {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
 }

@@ -109,11 +109,11 @@ function App() {
     }
   };
 
-  // Loading effect - simulate app initialization
+  // Loading effect - optimize initial load time
   useEffect(() => {
     const loadingTimer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Show loader for 2 seconds
+    }, 1200); // Reduced from 2000ms to 1200ms for faster perceived loading
 
     return () => clearTimeout(loadingTimer);
   }, []);
@@ -152,7 +152,7 @@ function App() {
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="flex justify-center items-center gap-4"
             >
               <div className="flex justify-center items-center">
@@ -189,7 +189,7 @@ function App() {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               className="flex justify-center items-center text-center md:text-left"
             >
               <div className="gap-3 md:gap-5 flex flex-col">
@@ -245,8 +245,8 @@ function App() {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-100px" }}
           id="skills"
           className="max-w-7xl mx-auto px-4"
         >
@@ -463,8 +463,8 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
             className="flex flex-col justify-center items-center gap-4 text-center"
           >
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-blue-400 to-white text-transparent bg-clip-text pb-10">
@@ -474,8 +474,8 @@ function App() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+            viewport={{ once: true, margin: "-50px" }}
             className="flex flex-col justify-evenly items-center gap-4 w-full md:flex-row"
           >
             <div className="gap-4 mb-10 md:mb-0">

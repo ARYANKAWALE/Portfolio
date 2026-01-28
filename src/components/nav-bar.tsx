@@ -16,9 +16,9 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
     const handleScroll = debounce(() => {
       setActiveSection(getCurrentActiveSection());
       setIsScrolled(window.scrollY > 50);
-    }, 100);
+    }, 50);
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -40,9 +40,8 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 260,
-        damping: 20
+        duration: 0.6,
+        ease: "easeOut"
       } as const
     }
   };
@@ -56,25 +55,25 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
         } ${className}`}
     >
       <motion.div
-        layout
-        className={`relative flex items-center backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 ${isScrolled
+        className={`relative flex items-center backdrop-blur-xl border border-white/10 shadow-lg transition-all duration-500 ease-out ${isScrolled
           ? 'bg-black/60 rounded-full px-4 py-2 w-auto max-w-[90vw]'
           : 'bg-black/30 w-full px-8 py-6 rounded-none border-none'
           }`}
         style={{
           backdropFilter: "blur(12px)",
+          willChange: isScrolled ? 'auto' : 'transform, opacity',
         }}
       >
         <div className={`flex items-center justify-between w-full ${isScrolled ? 'gap-4' : 'max-w-7xl mx-auto'}`}>
 
           {/* Logo */}
           <motion.div
-            layout
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => handleNavClick('main')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             <motion.div
-              layout
               className={`relative flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg group-hover:shadow-blue-500/50 transition-all duration-300 ${isScrolled ? 'w-8 h-8' : 'w-10 h-10'
                 }`}
             >
@@ -110,7 +109,8 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
                   <motion.div
                     layoutId="activeTab"
                     className="absolute inset-0 bg-white/10 rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                    style={{ willChange: 'transform' }}
                   />
                 )}
                 <span className="relative z-10">{item.label}</span>
@@ -121,20 +121,19 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
           {/* Contact Button & Mobile Toggle */}
           <div className="flex items-center gap-4">
             <motion.button
-              layout
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleContactClick}
-              className={`hidden md:block bg-white text-black font-semibold px-5 py-2 rounded-full text-sm shadow-lg hover:shadow-white/20 transition-all`}
+              className={`hidden md:block bg-white text-black font-semibold px-5 py-2 rounded-full text-sm shadow-lg hover:shadow-white/20 transition-all duration-200`}
             >
               Contact Me
             </motion.button>
 
             <motion.button
-              layout
               whileTap={{ scale: 0.9 }}
               onClick={toggleMenu}
               className="md:hidden text-white p-1"
+              transition={{ duration: 0.2 }}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </motion.button>
@@ -148,6 +147,7 @@ const NavBar: React.FC<NavBarProps> = ({ className = '' }) => {
               initial={{ opacity: 0, height: 0, marginTop: 0 }}
               animate={{ opacity: 1, height: 'auto', marginTop: 16 }}
               exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               className="absolute top-full left-0 right-0 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden md:hidden mx-4"
             >
               <div className="flex flex-col p-4 gap-2">
